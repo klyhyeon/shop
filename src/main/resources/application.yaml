@@ -12,6 +12,13 @@ spring:
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
     properties:
       hibernate:
-        show-sql: true
+        format_sql: true
+        use_sql_comments: true
+  #MVC
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp

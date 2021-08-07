@@ -10,7 +10,7 @@ ext {
 	querydslDir = "$buildDir/generated/querydsl"
 }
 
-group = 'learn.jpa'
+group = 'com.jpa.shop'
 version = ''
 sourceCompatibility = '11'
 
