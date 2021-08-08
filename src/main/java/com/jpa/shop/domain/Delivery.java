@@ -1,9 +1,25 @@
 package com.jpa.shop.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
 
-@Table(name = "DELIVERY")
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+
 @Entity
-public class Delivery {
+@Getter
+public class Delivery extends BaseEntity {
+
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+    private Order order;
+
+    @Embedded
+    private Address address;
+
+    private DeliveryStatus status;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

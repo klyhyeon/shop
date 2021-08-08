@@ -1,9 +1,24 @@
 package com.jpa.shop.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
 
-@Table(name = "ORDER_ITEM")
+import javax.persistence.*;
+
 @Entity
-public class OrderItem {
+@Getter
+public class OrderItem extends BaseEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
+
+    private int orderPrice;
+
+    private int count;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

@@ -1,9 +1,17 @@
 package com.jpa.shop.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
 
-@Table(name = "CATEGORY")
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-public class Category {
+@Getter
+public class Category extends BaseEntity {
+
+    private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 }
