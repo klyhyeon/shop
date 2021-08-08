@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Table(name = "ORDERS")
 public class Order extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
