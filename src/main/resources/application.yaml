@@ -17,6 +17,7 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+        ddl-auto: update
   #MVC
   mvc:
     view:
