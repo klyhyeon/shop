@@ -14,14 +14,12 @@ import javax.persistence.*;
 public class OrderItem extends BaseEntity {
 
     @Builder
-    public OrderItem createOrderItem(Item item, Order order, int orderPrice, int count)
+    public OrderItem (Item item, int orderPrice, int count)
             throws NotEnoughStock {
         this.item = item;
-        this.order = order;
         this.orderPrice = orderPrice;
         this.count = count;
         item.removeStock(count);
-        return this;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

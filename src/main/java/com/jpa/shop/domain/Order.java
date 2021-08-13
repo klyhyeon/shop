@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,14 +17,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity{
 
-    @Builder
-    public Order(Member member, List<OrderItem> orderItems, Delivery delivery, LocalDateTime orderDate, OrderStatus status) {
-        this.member = member;
-        this.orderItems = orderItems;
-        this.delivery = delivery;
-        this.orderDate = orderDate;
-        this.status = status;
-    }
+//    public static Order createOrder(Member member, Delivery delivery, OrderStatus status) {
+//
+//    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
@@ -34,6 +30,7 @@ public class Order extends BaseEntity{
     @OneToOne(fetch = FetchType.LAZY) //교재엔 cascade ALL
     private Delivery delivery;
 
+    @CreatedDate
     private LocalDateTime orderDate;
 
     private OrderStatus status;
@@ -58,7 +55,6 @@ public class Order extends BaseEntity{
         this.delivery = delivery;
         delivery.setOrder(this);
     }
-
 
     //==비즈니스 로직==//
     public void cancel() {
