@@ -40,5 +40,4 @@ public class MemberService {
                                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 ID 입니다."));
     }
 
-
 }
