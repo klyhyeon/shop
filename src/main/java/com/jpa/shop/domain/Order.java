@@ -1,16 +1,29 @@
 package com.jpa.shop.domain;
 
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Table(name = "ORDERS")
 @Entity
 @Getter
-@Table(name = "ORDERS")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity{
+
+    @Builder
+    public Order(Member member, List<OrderItem> orderItems, Delivery delivery, LocalDateTime orderDate, OrderStatus status) {
+        this.member = member;
+        this.orderItems = orderItems;
+        this.delivery = delivery;
+        this.orderDate = orderDate;
+        this.status = status;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
@@ -24,6 +37,11 @@ public class Order extends BaseEntity{
     private LocalDateTime orderDate;
 
     private OrderStatus status;
+
+    //==setter==//
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -39,5 +57,20 @@ public class Order extends BaseEntity{
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+
+    //==비즈니스 로직==//
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP)
+            throw new RuntimeException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem: orderItems)
+            orderItem.cancel();
+    }
+
+    public int getTotalPrice() {
+        return orderItems.stream().map(i -> i.getOrderPrice())
+                            .reduce(0, (a,b) -> (a + b));
     }
 }
