@@ -17,9 +17,20 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity{
 
-//    public static Order createOrder(Member member, Delivery delivery, OrderStatus status) {
-//
-//    }
+    public static Order createOrder(Member member, Delivery delivery, OrderItem orderItem) {
+        Order order = Order.builder()
+                            .delivery(delivery)
+                            .member(member).build();
+        order.addOrderItem(orderItem);
+        return order;
+    }
+
+    @Builder
+    public Order(Member member, Delivery delivery, OrderStatus status) {
+        this.member = member;
+        this.delivery = delivery;
+        this.status = status;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
