@@ -1,8 +1,6 @@
 package com.jpa.shop.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +9,14 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = "orders")
 public class Member extends BaseEntity {
+
+    @Builder
+    public Member (String name, Address address) {
+        this.name = name;
+        this.address = address;
+    }
 
     private String name;
 
@@ -20,4 +25,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
