@@ -12,15 +12,24 @@ spring:
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate:
         format_sql: true
+        show_sql: true
         use_sql_comments: true
         ddl-auto: update
     generate-ddl: true
+  output:
+    ansi:
+      enabled: always
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  #MVC
+  #logging
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    org.hiberante.SQL: DEBUG
+    org.hibernate.type: trace
