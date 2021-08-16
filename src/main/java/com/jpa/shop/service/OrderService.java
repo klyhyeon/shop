@@ -3,6 +3,7 @@ package com.jpa.shop.service;
 import com.jpa.shop.domain.*;
 import com.jpa.shop.errors.NotEnoughStock;
 import com.jpa.shop.repository.OrderRepository;
+import com.jpa.shop.repository.OrderRepositorySupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,15 @@ public class OrderService {
     private MemberService memberService;
     private OrderRepository orderRepository;
     private ItemService itemService;
+    private OrderRepositorySupport orderRepositorySupport;
 
     @Autowired
-    public OrderService(MemberService memberService, OrderRepository orderRepository, ItemService itemService) {
+    public OrderService(MemberService memberService, OrderRepository orderRepository, ItemService itemService,
+            OrderRepositorySupport orderRepositorySupport) {
         this.memberService = memberService;
         this.orderRepository = orderRepository;
         this.itemService = itemService;
+        this.orderRepositorySupport = orderRepositorySupport;
     }
 
     /** 주문 */
@@ -49,8 +53,7 @@ public class OrderService {
     }
 
     /** 주문검색 */
-    //TODO: QueryDSL 짜기
     public List<Order> findAll(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+        return orderRepositorySupport.findAll(orderSearch);
     }
 }
