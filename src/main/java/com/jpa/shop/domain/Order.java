@@ -35,10 +35,10 @@ public class Order extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY) //교재엔 cascade ALL
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //교재엔 cascade ALL
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY) //교재엔 cascade ALL
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) //교재엔 cascade ALL
     private Delivery delivery;
 
     @CreatedDate
