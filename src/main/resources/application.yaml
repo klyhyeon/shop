@@ -23,13 +23,14 @@ spring:
   output:
     ansi:
       enabled: always
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
   #logging
 logging:
   level:
-    org.springframework.web.client: DEBUG
-    org.hiberante.SQL: DEBUG
-    org.hibernate.type: trace
+    com:
+      jpa:
+        shop:
+          logger:
+            LoggerService: debug
+#    org.springframework.web.client: DEBUG
+#    org.hiberante.SQL: DEBUG
+#    org.hibernate.type: trace
